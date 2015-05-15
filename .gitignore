@@ -44,6 +44,9 @@ tags
 Thumbs.db
 v8.log
 /_out
+ipch/
+MyBrowser2/out
+MyBrowser2/Debug
 /android_emulator_sdk
 /ash/ash_unittests_run.xml
 /base/base_unittests_run.xml
