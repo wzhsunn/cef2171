@@ -231,20 +231,6 @@ void CMFCCefDemoDlg::OnSize(UINT nType, int cx, int cy)
 	GetClientRect(rc);
 	_LayoutRectCefControl(rc);
 	_LayoutOtherControl(rc);
-	//CefRefPtr<CefBrowser> browser = m_cefClient->GetMainBrowser();
-	/*CWnd* cefwindow = FindWindowEx(this->GetSafeHwnd(), NULL, L"CefBrowserWindow", NULL);
-	cefwindow->MoveWindow(0, 0, cx, cy);*/
-	/*if (m_cefClient.get())
-	{
-		CefRefPtr<CefBrowser> browser = m_cefClient->GetMainBrowser();
-		if (browser)
-		{
-			CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
-			RECT rect;
-			this->GetClientRect(&rect);
-			::MoveWindow(hwnd, 0, 0, cx, cy, true);
-		}
-	}*/
 }
 
 
@@ -299,7 +285,6 @@ void CMFCCefDemoDlg::OnBnClickedBtnExecuteJs()
 			{
 				std::wstring	wstrJS;
 				CString		strJS;
-
 				
 				GetDlgItemText(IDC_EDIT_JS, strJS);
 				// document.querySelector("#sb_form_q").value="C++";
