@@ -40,8 +40,8 @@ void AppGetSettings(CefSettings& settings)
 	settings.log_severity = LOGSEVERITY_ERROR;
 
 #if defined(OS_WIN)
-	settings.multi_threaded_message_loop = 
-		MyGlobal::inst().m_commandLine->HasSwitch(cefclient::kMultiThreadedMessageLoop);
+	settings.multi_threaded_message_loop = true;
+		//MyGlobal::inst().m_commandLine->HasSwitch(cefclient::kMultiThreadedMessageLoop);
 #endif
 }
 

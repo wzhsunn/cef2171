@@ -18,6 +18,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyBrowser2", "MyBrowser2\My
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CEFMFCTest2", "CEFMFCTest2\CEFMFCTest2.vcxproj", "{F549F84E-0777-4F87-A00D-E2F8D05C9420}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MFCCefApp", "MFCCefApp\MFCCefApp.vcxproj", "{8B8A6445-50E1-4D01-B80E-E24A3AD55B0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -62,6 +64,14 @@ Global
 		{F549F84E-0777-4F87-A00D-E2F8D05C9420}.Release|Win32.ActiveCfg = Release|Win32
 		{F549F84E-0777-4F87-A00D-E2F8D05C9420}.Release|Win32.Build.0 = Release|Win32
 		{F549F84E-0777-4F87-A00D-E2F8D05C9420}.Release|x64.ActiveCfg = Release|Win32
+		{8B8A6445-50E1-4D01-B80E-E24A3AD55B0E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8B8A6445-50E1-4D01-B80E-E24A3AD55B0E}.Debug|Win32.Build.0 = Debug|Win32
+		{8B8A6445-50E1-4D01-B80E-E24A3AD55B0E}.Debug|x64.ActiveCfg = Debug|x64
+		{8B8A6445-50E1-4D01-B80E-E24A3AD55B0E}.Debug|x64.Build.0 = Debug|x64
+		{8B8A6445-50E1-4D01-B80E-E24A3AD55B0E}.Release|Win32.ActiveCfg = Release|Win32
+		{8B8A6445-50E1-4D01-B80E-E24A3AD55B0E}.Release|Win32.Build.0 = Release|Win32
+		{8B8A6445-50E1-4D01-B80E-E24A3AD55B0E}.Release|x64.ActiveCfg = Release|x64
+		{8B8A6445-50E1-4D01-B80E-E24A3AD55B0E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

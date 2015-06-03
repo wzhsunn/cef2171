@@ -126,7 +126,7 @@ BOOL CCEFMFCTest2App::InitInstance()
 	{
 		// Run the CEF message loop. This function will block until the application
 		// recieves a WM_QUIT message.
-		CefRunMessageLoop();
+		//CefRunMessageLoop();
 
 		CefShutdown();
 	}

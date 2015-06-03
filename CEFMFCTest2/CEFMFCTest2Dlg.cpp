@@ -165,8 +165,9 @@ void CCEFMFCTest2Dlg::OnBnClickedButton1()
 	settings.multi_threaded_message_loop = true;*/
 	info.SetAsChild(m_hWnd, CRect(0, 0, 800, 600));
 	CefString url("http://www.baidu.com");
-	//CefBrowserHost::CreateBrowser(info, MyGlobal::inst().m_cefHandler, url, settings, nullptr);
-	CefBrowserHost::CreateBrowserSync(info, MyGlobal::inst().m_cefHandler, url, settings, nullptr);
+	CefBrowserHost::CreateBrowser(info, MyGlobal::inst().m_cefHandler, url, settings, nullptr);
+	//CefRefPtr<CefBrowser> browser = CefBrowserHost::CreateBrowserSync(info, MyGlobal::inst().m_cefHandler, url, settings, nullptr);
 	SetWindowText(url.c_str());
-
+	CefRefPtr<CefBrowser> browser = MyGlobal::inst().m_cefHandler->GetBrowser();
+	//ASSERT(browser == nullptr);
 }
