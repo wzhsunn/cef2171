@@ -149,18 +149,19 @@ BOOL CMFCCefDemoDlg::OnInitDialog()
 	
 
 	std::string strUIPath =
-		"http://www.baidu.com";
+		//"http://www.baidu.com";
 
-		//"http://cn.bing.com"
-		GetAppDir() + "skin\\"
-			// 测试网上的皮肤
-			"bootstrap\\"
-				"gebo_admin\\index.htm"
-				//"arctic-sunset\\index.html"				
-				//"musik-music-html\\index.html"
-			// 测试C++和js交互
-			//"testapp.html"
-		;
+		"http://cn.bing.com";
+
+		//GetAppDir() + "skin\\"
+		//	// 测试网上的皮肤
+		//	"bootstrap\\"
+		//		"gebo_admin\\index.htm"
+		//		//"arctic-sunset\\index.html"				
+		//		//"musik-music-html\\index.html"
+		//	// 测试C++和js交互
+		//	//"testapp.html"
+		//;
 	BOOL bRet = CefBrowserHost::CreateBrowser(
 		info, 
 		static_cast<CefRefPtr<CefClient> >(m_cefClient),
@@ -168,7 +169,7 @@ BOOL CMFCCefDemoDlg::OnInitDialog()
 		CefBrowserSettings(),
 		NULL
 		);
-
+	
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -230,6 +231,20 @@ void CMFCCefDemoDlg::OnSize(UINT nType, int cx, int cy)
 	GetClientRect(rc);
 	_LayoutRectCefControl(rc);
 	_LayoutOtherControl(rc);
+	//CefRefPtr<CefBrowser> browser = m_cefClient->GetMainBrowser();
+	/*CWnd* cefwindow = FindWindowEx(this->GetSafeHwnd(), NULL, L"CefBrowserWindow", NULL);
+	cefwindow->MoveWindow(0, 0, cx, cy);*/
+	/*if (m_cefClient.get())
+	{
+		CefRefPtr<CefBrowser> browser = m_cefClient->GetMainBrowser();
+		if (browser)
+		{
+			CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
+			RECT rect;
+			this->GetClientRect(&rect);
+			::MoveWindow(hwnd, 0, 0, cx, cy, true);
+		}
+	}*/
 }
 
 
@@ -242,7 +257,7 @@ void CMFCCefDemoDlg::_LayoutRectCefControl(CRect & rc)
 		{
 			CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
 
-			_LayoutRectCefControl(rc);
+			//_LayoutRectCefControl(rc);
 			// ::SetWindowPos(hwnd, HWND_TOP, 0, 0, cx, cy, SWP_NOZORDER);  
 			::MoveWindow(hwnd, rc.left, rc.top, rc.Width(), rc.Height(), TRUE);
 		}
