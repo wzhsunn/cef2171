@@ -36,6 +36,7 @@ BEGIN_MESSAGE_MAP(CMyBrowser2View, CView)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_CREATE()
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 // CMyBrowser2View construction/destruction
@@ -112,7 +113,7 @@ CMyBrowser2Doc* CMyBrowser2View::GetDocument() const // non-debug version is inl
 
 
 // CMyBrowser2View message handlers
-
+using namespace  cef::logging;
 
 int CMyBrowser2View::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -151,10 +152,17 @@ int CMyBrowser2View::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	if (CefExecuteProcess(main_args, app.get(), nullptr) == -1)
 	{
+		
 		CefSettings settings;
 		CefSettingsTraits::init(&settings);
 		settings.multi_threaded_message_loop = true;
+
 		CefInitialize(main_args, settings, app.get(), nullptr);
+		
+		//Sleep(2000);
+
+		//LOG(info) << "hi";
+
 
 		my_cef_handler = new MyCefHandler();
 
@@ -162,7 +170,30 @@ int CMyBrowser2View::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		info.SetAsChild(m_hWnd, CRect(0, 0, 1200, 1200));
 
 		CefBrowserSettings settings1;
-		CefBrowserHost::CreateBrowser(info, my_cef_handler.get(), CefString("http://www.baidu.com"), settings1, NULL);
+		//CefBrowserHost::CreateBrowser(info, my_cef_handler.get(), CefString("http://www.baidu.com"), settings1, NULL);
+		CefRefPtr<CefBrowser> browser = CefBrowserHost::CreateBrowserSync(info, my_cef_handler.get(), CefString("http://www.baidu.com"),
+			settings1, NULL);
+		//CefRunMessageLoop();
+	/*	CefRefPtr<CefRequestContext> request_context;
+		
+		CefRefPtr<CefBrowser> browser = CefBrowserHost::CreateBrowserSync(info, my_cef_handler.get(), 
+			CefString("http://www.baidu.com"), settings1, NULL);*/
+
+		//browser->GetMainFrame()
+		//CefRefPtr<MyCefHandler> handler = app->();
+		//CefRefPtr<CefBrowser> browser = my_cef_handler->GetBrowser();
+		//assert(browser != NULL);
+		//////browser->
+		/*CefRefPtr<CefFrame> frame = browser->GetMainFrame();
+		frame->ExecuteJavaScript("alert('ExcuteJavaScript works');", frame->GetURL(), 0);*/
 	}
 	return 0;
+}
+
+
+void CMyBrowser2View::OnDestroy()
+{
+	CView::OnDestroy();
+	CefShutdown();
+	// TODO: Add your message handler code here
 }

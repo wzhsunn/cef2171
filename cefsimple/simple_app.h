@@ -22,6 +22,8 @@ class SimpleApp : public CefApp,
  private:
   // Include the default reference counting implementation.
   IMPLEMENT_REFCOUNTING(SimpleApp);
+
+  CefRefPtr<CefBrowser> m_browser;
 };
 
 #endif  // CEF_TESTS_CEFSIMPLE_SIMPLE_APP_H_

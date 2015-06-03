@@ -45,4 +45,11 @@ void SimpleApp::OnContextInitialized() {
   // Create the first browser window.
   CefBrowserHost::CreateBrowser(window_info, handler.get(), url,
                                 browser_settings, NULL);
+
+  /*m_browser = CefBrowserHost::CreateBrowserSync(window_info, handler.get(), url,
+	  browser_settings, NULL);*/
+
+  
+
+  
 }

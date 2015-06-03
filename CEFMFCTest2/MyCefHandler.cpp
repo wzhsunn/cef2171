@@ -183,7 +183,7 @@ void MyCefHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser)
 	CEF_REQUIRE_UI_THREAD();
 	this->browser = browser;
 	//CefLifeSpanHandler::OnAfterCreated(browser);
-	
+
 }
 
 void MyCefHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser)

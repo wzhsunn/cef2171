@@ -16,4 +16,7 @@ void SimpleHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
 
   CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
   SetWindowText(hwnd, std::wstring(title).c_str());
+  CefRefPtr<CefFrame> frame = browser->GetMainFrame();
+  frame->ExecuteJavaScript("alert('ExecuteJavaScript works!');",
+	  frame->GetURL(), 0);
 }
