@@ -53,13 +53,24 @@ BOOL CCEFMFCTest2App::InitInstance()
 			return exit_code;
 
 		// Parse command line arguments. The passed in values are ignored on Windows.
-		AppInitCommandLine(0, NULL);
+		//AppInitCommandLine(0, NULL);
 
-		CefSettings settings;
+		//CefSettings settings;
 
-		// Populate the settings based on command line arguments.
-		AppGetSettings(settings);
+		//// Populate the settings based on command line arguments.
+		//AppGetSettings(settings);
 
+		//CefRefPtr<CefCommandLine>			CommandLine;
+		CefSettings							settings;
+		CefSettingsTraits::init(&settings);
+		settings.command_line_args_disabled = false;
+		settings.single_process = false;
+		//中文支持
+		// http://blog.sina.com.cn/s/blog_dad2c54101019dav.html
+		CefString(&settings.locale).FromASCII("zh-cn");
+
+		//settings.multi_threaded_message_loop = CommandLine->HasSwitch("multi-threaded-message-loop");
+		settings.multi_threaded_message_loop = true;
 		//bool bl = settings.multi_threaded_message_loop;
 		// Initialize CEF.
 		CefInitialize(main_args, settings, app.get(), nullptr);

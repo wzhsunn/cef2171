@@ -34,16 +34,17 @@
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 
 
+//
+//#include "include\cef_client.h"
+//#include "include\cef_browser.h"
+//#include "include\cef_runnable.h"
+//#include "include\cef_web_plugin.h"
+//#include "include/wrapper/cef_byte_read_handler.h"
+//#include "include/wrapper/cef_stream_resource_handler.h"
 
-#include "include\cef_client.h"
-#include "include\cef_browser.h"
-#include "include\cef_runnable.h"
-#include "include\cef_web_plugin.h"
-#include "include/wrapper/cef_byte_read_handler.h"
-#include "include/wrapper/cef_stream_resource_handler.h"
+#include "include_cef.h"
 
-
-#pragma comment(lib, "libcef.lib")
+//#pragma comment(lib, "libcef.lib")
 
 
 

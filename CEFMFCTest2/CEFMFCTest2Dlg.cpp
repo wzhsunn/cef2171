@@ -100,6 +100,20 @@ BOOL CCEFMFCTest2Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	m_cefClient = new MyCefHandler();
+	CefWindowInfo info;
+	CRect	rc/*(0, 0, 800, 600)*/;
+	this->GetClientRect(rc);
+	info.SetAsChild(m_hWnd, rc);
+	std::string strUIPath =
+		"http://www.baidu.com";
+	BOOL bRet = CefBrowserHost::CreateBrowser(
+		info,
+		static_cast<CefRefPtr<CefClient>>(m_cefClient),
+		strUIPath,
+		CefBrowserSettings(),
+		NULL
+		);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -159,15 +173,30 @@ void CCEFMFCTest2Dlg::OnBnClickedButton1()
 {
 	// TODO: Add your control notification handler code here
 
-	CefWindowInfo info;
-	CefBrowserSettings settings;
-	/*CefSettingsTraits::init(&settings);
-	settings.multi_threaded_message_loop = true;*/
-	info.SetAsChild(m_hWnd, CRect(0, 0, 800, 600));
-	CefString url("http://www.baidu.com");
-	CefBrowserHost::CreateBrowser(info, MyGlobal::inst().m_cefHandler, url, settings, nullptr);
-	//CefRefPtr<CefBrowser> browser = CefBrowserHost::CreateBrowserSync(info, MyGlobal::inst().m_cefHandler, url, settings, nullptr);
-	SetWindowText(url.c_str());
-	CefRefPtr<CefBrowser> browser = MyGlobal::inst().m_cefHandler->GetBrowser();
-	//ASSERT(browser == nullptr);
+	//CefWindowInfo info;
+	//CefBrowserSettings settings;
+	///*CefSettingsTraits::init(&settings);
+	//settings.multi_threaded_message_loop = true;*/
+	//info.SetAsChild(m_hWnd, CRect(0, 0, 800, 600));
+	//CefString url("http://www.baidu.com");
+	//CefBrowserHost::CreateBrowser(info, MyGlobal::inst().m_cefHandler, url, settings, nullptr);
+	////CefRefPtr<CefBrowser> browser = CefBrowserHost::CreateBrowserSync(info, MyGlobal::inst().m_cefHandler, url, settings, nullptr);
+	//SetWindowText(url.c_str());
+	//CefRefPtr<CefBrowser> browser = MyGlobal::inst().m_cefHandler->GetBrowser();
+	////ASSERT(browser == nullptr);
+
+
+
+	if (m_cefClient.get())
+	{
+		CefRefPtr<CefBrowser> browser = m_cefClient->GetBrowser();
+		if (browser)
+		{
+			CefRefPtr<CefFrame> frame = browser->GetMainFrame();
+			if (frame)
+			{
+				frame->ExecuteJavaScript("alert(\"hello from c++\");", frame->GetURL(), 0);
+			}
+		}
+	}
 }

@@ -51,9 +51,6 @@
     <ClInclude Include="MyCefUtil.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="client_switches.h">
-      <Filter>CEF</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CEFMFCTest2.cpp">
@@ -76,9 +73,6 @@
     </ClCompile>
     <ClCompile Include="MyCefUtil.cpp">
       <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="client_switches.cpp">
-      <Filter>CEF</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

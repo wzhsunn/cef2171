@@ -105,7 +105,6 @@
   <ItemGroup>
     <ClInclude Include="CEFMFCTest2.h" />
     <ClInclude Include="CEFMFCTest2Dlg.h" />
-    <ClInclude Include="client_switches.h" />
     <ClInclude Include="MyCefApp.h" />
     <ClInclude Include="MyCefHandler.h" />
     <ClInclude Include="MyCefUtil.h" />
@@ -117,7 +116,6 @@
   <ItemGroup>
     <ClCompile Include="CEFMFCTest2.cpp" />
     <ClCompile Include="CEFMFCTest2Dlg.cpp" />
-    <ClCompile Include="client_switches.cpp" />
     <ClCompile Include="MyCefApp.cpp" />
     <ClCompile Include="MyCefHandler.cpp" />
     <ClCompile Include="MyCefUtil.cpp" />

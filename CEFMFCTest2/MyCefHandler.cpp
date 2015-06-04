@@ -11,28 +11,6 @@
 
 
 
-//
-//namespace {
-//
-//	MyCefHandler* g_instance = NULL;
-//
-//}  // namespace
-//
-//MyCefHandler::MyCefHandler()
-//	: is_closing_(false) {
-//	DCHECK(!g_instance);
-//	g_instance = this;
-//}
-//
-//MyCefHandler::~MyCefHandler() {
-//	g_instance = NULL;
-//}
-//
-//// static
-//MyCefHandler* MyCefHandler::GetInstance() {
-//	return g_instance;
-//}
-//
 //void MyCefHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 //	CEF_REQUIRE_UI_THREAD();
 //
@@ -121,37 +99,8 @@ MyCefHandler::~MyCefHandler()
 
 CefRefPtr<CefBrowser> MyCefHandler::GetBrowser()
 {
-	return browser;
-}
-
-CefRefPtr<CefContextMenuHandler> MyCefHandler::GetContextMenuHandler()
-{
-	return this;
-}
-
-CefRefPtr<CefDisplayHandler> MyCefHandler::GetDisplayHandler()
-{
-	return this;
-}
-
-CefRefPtr<CefDownloadHandler> MyCefHandler::GetDownloadHandler()
-{
-	return this;
-}
-
-CefRefPtr<CefDragHandler> MyCefHandler::GetDragHandler()
-{
-	return this;
-}
-
-CefRefPtr<CefGeolocationHandler> MyCefHandler::GetGeolocationHandler()
-{
-	return this;
-}
-
-CefRefPtr<CefKeyboardHandler> MyCefHandler::GetKeyboardHandler()
-{
-	return this;
+	base::AutoLock lock_scope(lock_);
+	return m_mainBrowser;
 }
 
 CefRefPtr<CefLifeSpanHandler> MyCefHandler::GetLifeSpanHandler()
@@ -159,36 +108,51 @@ CefRefPtr<CefLifeSpanHandler> MyCefHandler::GetLifeSpanHandler()
 	return this;
 }
 
-CefRefPtr<CefLoadHandler> MyCefHandler::GetLoadHandler()
-{
-	return this;
-}
-
-CefRefPtr<CefRequestHandler> MyCefHandler::GetRequestHandler()
-{
-	return this;
-}
-
-void MyCefHandler::OnBeforeDownload(CefRefPtr<CefBrowser> browser,
-	CefRefPtr<CefDownloadItem> download_item,
-	const CefString& suggested_name, CefRefPtr<CefBeforeDownloadCallback> callback)
-{
-	UNREFERENCED_PARAMETER(browser);
-	UNREFERENCED_PARAMETER(download_item);
-	callback->Continue(suggested_name, true);
-}
 
 void MyCefHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser)
 {
 	CEF_REQUIRE_UI_THREAD();
-	this->browser = browser;
+	base::AutoLock lock_scope(lock_);
+	if (!m_mainBrowser.get())
+	{
+		m_mainBrowser = browser;
+	} 
+	else
+	{
+		m_browsers.push_back(browser);
+	}
 	//CefLifeSpanHandler::OnAfterCreated(browser);
-
 }
 
 void MyCefHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser)
 {
 	CEF_REQUIRE_UI_THREAD();
-	CefLifeSpanHandler::OnBeforeClose(browser);
-	CefQuitMessageLoop();
+	base::AutoLock lock_scope(lock_);
+
+	if (m_mainBrowser.get() && m_mainBrowser->GetIdentifier() == browser->GetIdentifier())
+	{
+		//m_mainBrowser = NULL;
+		for (auto bit = m_browsers.begin(); bit != m_browsers.end(); ++ bit)
+		{
+		if ((*bit)->IsLoading())
+		{
+		(*bit)->StopLoad();
+		}
+		(*bit)->GetHost()->CloseBrowser(true);
+		}
+		m_mainBrowser->GetHost()->CloseBrowser(true);
+		m_mainBrowser = nullptr;
+	}
+	else
+	{
+		m_browsers.erase(std::remove_if(m_browsers.begin(), m_browsers.end(),
+			[&](BrowserList::value_type &it){return it->GetIdentifier() == browser->GetIdentifier(); }), m_browsers.end());
+
+	}
+}
+
+bool MyCefHandler::DoClose(CefRefPtr<CefBrowser> browser)
+{
+	CEF_REQUIRE_UI_THREAD();
+	return false;
 }

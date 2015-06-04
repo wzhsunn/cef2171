@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "MyCefHandler.h"
 
 // CCEFMFCTest2Dlg dialog
 class CCEFMFCTest2Dlg : public CDialogEx
@@ -31,4 +31,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButton1();
+private:
+	CefRefPtr<MyCefHandler>		m_cefClient;
+
 };
